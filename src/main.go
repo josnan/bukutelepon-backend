@@ -1,11 +1,17 @@
 package main
 
-import "github.com/gin-gonic/gin"
+import (
+	"./models"
+
+	"github.com/gin-gonic/gin"
+	_ "github.com/lib/pq"
+)
 
 func main() {
-	r := gin.Default()
+	models.Init("postgresql://root@128.199.191.240:26257/bukutelepon?sslmode=disable")
 
+	r := gin.Default()
 	Routes(r)
 
-	r.Run() // listen and serve on 0.0.0.0:8080
+	r.Run()
 }
