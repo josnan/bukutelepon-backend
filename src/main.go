@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	"./models"
 
 	"github.com/gin-gonic/gin"
@@ -8,7 +10,8 @@ import (
 )
 
 func main() {
-	models.Init("postgresql://root@128.199.191.240:26257/bukutelepon?sslmode=disable")
+	dbconfig := config().dbconfig
+	models.Init(fmt.Sprintf("postgresql://%s@%s:26257/%s?sslmode=disable", dbconfig.user, dbconfig.host, dbconfig.database))
 
 	r := gin.Default()
 	Routes(r)
